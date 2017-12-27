@@ -12,6 +12,9 @@ function getChatLogs() {
     .done(function(data) {
       console.log("Starting GET experiment:");
       console.log(data);
+
+      clearChatLogList();
+      appendChatLogList(data.body.logs);
     });
 }
 
@@ -35,10 +38,15 @@ function postChatLogs() {
 
 function updateList() {
   var chatLogArray = ['Tahe', 'Rua', 'Toru', 'Wha'];
-  populateChatLogList(chatLogArray);
+  appendChatLogList(chatLogArray);
 }
 
-function populateChatLogList(chatLogArray) {
+function clearChatLogList() {
+  var chatList = document.getElementById("chatList");
+  chatList.innerHTML = "";
+}
+
+function appendChatLogList(chatLogArray) {
   var chatList = document.getElementById("chatList");
   _.forEach(chatLogArray, function(logEntry) {
     var node = document.createElement("LI"); // Create a <li> node
