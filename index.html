@@ -5,11 +5,18 @@
 
   <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/lodash.js"></script>
     <script src="js/chat.js"></script>
 
     <p id="contents">Website contents</p>
+
     <button type="button" onclick="displayDateTime()">Update Contents</button>
     <button type="button" onclick="getChatLogs()">Get Chat Logs</button>
     <button type="button" onclick="postChatLogs()">Post Chat Logs</button>
+    <button type="button" onclick="updateList()">Update List</button>
+
+    <ul id="chatList">
+    </ul>
+
   </body>
 </html>
