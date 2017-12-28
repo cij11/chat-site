@@ -19,6 +19,9 @@ function getChatLogs() {
 }
 
 function postChatLogs() {
+  var messageText = document.getElementById("chatInput").value;
+  console.log(messageText);
+
   $.ajax({
     type: 'POST',
     url: "https://saa487eskg.execute-api.ap-southeast-1.amazonaws.com/prod",
@@ -26,7 +29,7 @@ function postChatLogs() {
       "Content-Type": "text/plain",
     },
     data: JSON.stringify({
-      "message" : "ten"
+      "message" : messageText
     })
   }).done(function(data) {
     console.log("Starting POST experiment:");
