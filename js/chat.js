@@ -32,7 +32,9 @@ function postChatLogs() {
   }).done(function(data) {
     console.log("Starting POST experiment:");
     console.log(data);
-    console.log(data.body.generatedNum);
+
+    clearChatLogList();
+    appendChatLogList(data.body.logs);
   });
 }
 
