@@ -26,8 +26,7 @@ function postChatLogs() {
       "Content-Type": "text/plain",
     },
     data: JSON.stringify({
-      "min": 100,
-      "max": 1000
+      "message" : "ten"
     })
   }).done(function(data) {
     console.log("Starting POST experiment:");

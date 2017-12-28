@@ -39,43 +39,45 @@ exports.handler = (event, context, callback) => {
     if (err) {
       callback(err, null);
     } else {
-      updateChatLog(data.Item, 'test', callback);
+      updateChatLog(data.Item, event.message, callback);
     }
   });
 };
 
-function updateChatLog(oldItem, message, callback) {
+function updateChatLog(oldItem, message, callback){
 
-  var newChatLogs = oldItem.logs;
-  newChatLogs.push(message);
+    var newChatLogs = oldItem.logs;
+    newChatLogs.push(message);
 
-  var updatedItem = {
-    id: oldItem.id,
-    logs: newChatLogs
-  };
+    var updatedItem = {
+        id : oldItem.id ,
+        logs: newChatLogs
+    };
 
-  //Write the results back to the database
-  var writeParams = {
-    Item: updatedItem,
-    TableName: 'chat-table'
-  };
+    //Write the results back to the database
+        var writeParams = {
+        Item: updatedItem,
+        TableName: 'chat-table'
+    };
 
-  docClient.put(writeParams, function(err, data) {
-    if (err) {
-      callback(err, null);
-    } else {
 
-      //To get around cors, need a response header
-      const response = {
-        statusCode: 200,
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
-          'Access-Control-Allow-Credentials': true,
-        },
-        body: {logs: updatedItem.logs}
-      };
-      callback(null, response);
-    }
-  });
+    docClient.put(writeParams, function(err, data){
+        if(err){
+            callback(err, null);
+        }
+        else{
+
+            //To get around cors, need a response header
+            const response = {
+                statusCode: 200,
+                headers: {
+                    'Access-Control-Allow-Origin' : '*',
+                    'Access-Control-Allow-Headers':'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
+                    'Access-Control-Allow-Credentials' : true,
+                },
+            body: {logs: updatedItem.logs}
+            };
+            callback(null, response);
+        }
+    });
 }
